@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoDay</title>
+    <link
+      rel="icon"
+      href="gpy.jpg"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+
+     
+
+
+        .header {
+            background: linear-gradient(180deg, #0037AE, #00205F);
+            padding: 20px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .header .profile {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .header .profile .info {
+            margin-left: 10px;
+        }
+
+        .header .info .name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .header .info .email {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .header .balance {
+            margin-top: 10px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .header .actions {
+            display: flex;
+            margin-top: 15px;
+            justify-content: space-around;
+        }
+
+        .header .action {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .header .action img {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 5px;
+        }
+
+        .header .action p {
+            font-size: 12px;
+        }
+
+        .section {
+            margin: 20px;
+        }
+
+        .section .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .section .title h2 {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .section .title a {
+            font-size: 14px;
+            color: #1E90FF;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .card {
+            background-color: #1F1F1F;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .card .card-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .card .card-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .card .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+
+        /* Bottom navigation styling */
+        .bottom-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    margin: 0 auto; /* Untuk menjaga elemen tetap di tengah */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 90%;
+    max-width: 400px;
+    background-color: #f5f5f5;
+    padding: 10px 0;
+    border-radius: 40px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.nav-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    cursor: pointer;
+}
+
+.nav-item img {
+    width: 24px;
+    height: 24px;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.nav-item span {
+    font-size: 12px;
+    color: #555;
+    margin-top: 5px;
+    z-index: 1;
+    transition: color 0.3s ease;
+}
+
+/* Circle indicator */
+.nav-item .circle {
+    position: absolute;
+    top: -15px;
+    width: 40px;
+    height: 40px;
+    background-color: #34acb4;
+    border-radius: 50%;
+    transform: scale(0);
+    z-index: 1;
+    transition: transform 0.3s ease;
+}
+
+/* Active state */
+.nav-item.active .circle {
+    transform: scale(1);
+}
+
+.nav-item.active img {
+    transform: translateY(-10px);
+}
+
+.nav-item.active span {
+    color: #000;
+    font-weight: bold;
+}
+
+
+        .banner-container {
+    position: relative;
+    overflow: hidden;
+    width: 90%; /* Lebar diperlebar agar muat di layar */
+    max-width: 400px; /* Batas maksimal lebar agar tidak terlalu panjang */
+    height: 160px; /* Tinggi banner */
+    margin: 0 auto; /* Agar posisi banner berada di tengah */
+    margin-top: -20px; /* Menempel pada header biru */
+}
+
+.banner-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    transform: translateX(0);
+}
+
+.banner {
+    min-width: 100%;
+    height: 160px; /* Samakan dengan tinggi banner-container */
+    border-radius: 10px;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Menyesuaikan gambar dengan proporsi area */
+    image-rendering: auto; /* Menjaga kualitas gambar */
+    -webkit-filter: brightness(1.1); /* Menambahkan sedikit efek kecerahan untuk gambar lebih hidup */
+    filter: brightness(1.1);
+}
+
+
+.navigation {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.nav-btn {
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.nav-btn:disabled {
+    background: rgba(255, 255, 255, 0.2);
+    cursor: not-allowed;
+}
+
+    </style>
+</head>
+<body>
+
+
+<div class="header">
+    <div class="profile">
+        <img src="https://img.icons8.com/ios-glyphs/60/FFFFFF/user.png" alt="Profile" onclick="window.location.href='profile.html'">
+        <div class="info">
+          
+        </div>
+        <br>
+        <br>
+    </div>
+    <div class="balance">Rp 500.000</div>
+    <div class="actions">
+        <div class="action" onclick="showAlert()">
+            <img src="https://img.icons8.com/ios-glyphs/30/FFFFFF/money-transfer.png" alt="">
+            <p>Top Up</p>
+        </div>
+        <div class="action" onclick="showAlert()">
+            <img src="https://img.icons8.com/ios-glyphs/30/FFFFFF/qr-code.png" alt="">
+            <p>Tarik Tunai</p>
+        </div>
+        <div class="action" onclick="showAlert()">
+            <img src="https://img.icons8.com/ios-glyphs/30/FFFFFF/wallet.png" alt="">
+            <p>Upgrade Tabungan</p>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div class="banner-container">
+    <div class="banner-track" id="bannerTrack">
+        <div class="banner">
+            <img src="bens.jpg" alt="Banner 1">
+        </div>
+        <div class="banner">
+            <img src="bener2.webp" alt="Banner 2">
+        </div>
+        <div class="banner">
+            <img src="bener3.webp" alt="Banner 3">
+        </div>
+    </div>
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="scrollBanner(-1)">&#8249;</button>
+        <button class="nav-btn" id="nextBtn" onclick="scrollBanner(1)">&#8250;</button>
+    </div>
+</div>
+
+<div class="section">
+    <div class="title">
+        <h2>Kirim & Terima</h2>
+        <a onclick="showAlert()">Lihat Semua</a>
+    </div>
+    <div class="card">
+        <div class="card-item">
+            <div class="icon">C</div>
+            
+        </div>
+        <div class="card-item">
+            <div class="icon">M</div>
+       
+        </div>
+        <div class="card-item">
+            <div class="icon">S</div>
+          
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="title">
+        <h2>Riwayat Transaksi</h2>
+    </div>
+    <div class="card">
+        <div class="card-item">
+            <p>Transfer ke Andi</p>
+            <span style="color: red;">- Rp200.000</span>
+        </div>
+        <div class="card-item">
+            <p>Top Up GoDay</p>
+            <span style="color: green;">+ Rp500.000</span>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<div class="bottom-nav">
+    <div class="nav-item active" onclick="setActive(this, 0)">
+        <a href="index.html"></a>
+            <div class="circle"></div>
+            <img src="https://img.icons8.com/ios-filled/50/FFFFFF/home.png" alt="Home">
+            <span>Home</span>
+        
+    </div>
+    <div class="nav-item" onclick="setActive(this, 1)">
+        <a href="wallet.html"></a>
+            <div class="circle"></div>
+            <img src="https://img.icons8.com/ios-filled/50/FFFFFF/image.png" alt="Wallet">
+            <span>Wallet</span>
+        
+    </div>
+    <div class="nav-item" onclick="setActive(this, 3)">
+        <div class="circle"></div>
+        <img src="https://img.icons8.com/ios-filled/50/FFFFFF/user.png" alt="Profile">
+        <span>Profile</span>
+    </div>
+    <div class="nav-item" onclick="setActive(this, 4)">
+        <div class="circle"></div>
+        <img src="https://img.icons8.com/ios-filled/50/FFFFFF/settings.png" alt="Settings">
+        <span>Settings</span>
+    </div>
+</div>
+
+
+
+<script>
+    function showAlert() {
+        alert("Maaf app masih tahap maintenance");
+    }
+
+
+    let currentIndex = 0;
+
+function startCarousel() {
+    const bannerTrack = document.getElementById('bannerTrack');
+    const banners = document.querySelectorAll('.banner');
+    const totalBanners = banners.length;
+
+    setInterval(() => {
+        currentIndex = (currentIndex + 1) % totalBanners;
+        bannerTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+        bannerTrack.style.transition = 'transform 0.5s ease-in-out';
+    }, 3000); // Bergulir setiap 3 detik
+}
+
+startCarousel();
+
+
+
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+        const navItems = document.querySelectorAll('.nav-item');
+        const currentPath = window.location.pathname; // Mendapatkan path URL saat ini
+
+        // Hapus kelas 'active' dari semua elemen
+        navItems.forEach((item) => item.classList.remove('active'));
+
+        // Periksa halaman mana yang sedang dibuka dan tambahkan kelas 'active'
+        if (currentPath.includes('index.html')) {
+            navItems[0].classList.add('active');
+        } else if (currentPath.includes('wallet.html')) {
+            navItems[1].classList.add('active');
+        } else if (currentPath.includes('profile.html')) {
+            navItems[2].classList.add('active');
+        } else if (currentPath.includes('settings.html')) {
+            navItems[3].classList.add('active');
+        }
+    });
+
+    // Fungsi setActive untuk navigasi dan mengatur elemen aktif
+    function setActive(element, index) {
+        // Hapus kelas 'active' dari semua elemen
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach((item) => item.classList.remove('active'));
+
+        // Tambahkan kelas 'active' pada elemen yang diklik
+        element.classList.add('active');
+
+        // Navigasi halaman berdasarkan indeks
+        if (index === 0) {
+            window.location.href = 'index.html';
+        } else if (index === 1) {
+            window.location.href = 'wallet.html';
+        } else if (index === 3) {
+            window.location.href = 'profile.html';
+        } else if (index === 4) {
+            window.location.href = 'settings.html';
+        }
+    }
+
+
+</script>
+
+</body>
+</html>

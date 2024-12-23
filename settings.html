@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        .header {
+            background: linear-gradient(180deg, #0037AE, #00205F);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        .back-button {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .back-button img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .settings-section {
+            margin: 20px;
+        }
+
+        .settings-item {
+            background-color: #1F1F1F;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .settings-item:hover {
+            background-color: #333;
+        }
+
+        .settings-item p {
+            margin: 0;
+        }
+
+
+        .section {
+            margin: 20px;
+        }
+
+        .section .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .section .title h2 {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .section .title a {
+            font-size: 14px;
+            color: #1E90FF;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .card {
+            background-color: #1F1F1F;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .card .card-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .card .card-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .card .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+
+        /* Bottom navigation styling */
+        .bottom-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    margin: 0 auto; /* Untuk menjaga elemen tetap di tengah */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 90%;
+    max-width: 400px;
+    background-color: #f5f5f5;
+    padding: 10px 0;
+    border-radius: 40px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.nav-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    cursor: pointer;
+}
+
+.nav-item img {
+    width: 24px;
+    height: 24px;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.nav-item span {
+    font-size: 12px;
+    color: #555;
+    margin-top: 5px;
+    z-index: 1;
+    transition: color 0.3s ease;
+}
+
+/* Circle indicator */
+.nav-item .circle {
+    position: absolute;
+    top: -15px;
+    width: 40px;
+    height: 40px;
+    background-color: #34acb4;
+    border-radius: 50%;
+    transform: scale(0);
+    z-index: 1;
+    transition: transform 0.3s ease;
+}
+
+/* Active state */
+.nav-item.active .circle {
+    transform: scale(1);
+}
+
+.nav-item.active img {
+    transform: translateY(-10px);
+}
+
+.nav-item.active span {
+    color: #000;
+    font-weight: bold;
+}
+
+
+        .banner-container {
+    position: relative;
+    overflow: hidden;
+    width: 90%; /* Lebar diperlebar agar muat di layar */
+    max-width: 400px; /* Batas maksimal lebar agar tidak terlalu panjang */
+    height: 160px; /* Tinggi banner */
+    margin: 0 auto; /* Agar posisi banner berada di tengah */
+    margin-top: -20px; /* Menempel pada header biru */
+}
+
+.banner-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    transform: translateX(0);
+}
+
+.banner {
+    min-width: 100%;
+    height: 160px; /* Samakan dengan tinggi banner-container */
+    border-radius: 10px;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Menyesuaikan gambar dengan proporsi area */
+    image-rendering: auto; /* Menjaga kualitas gambar */
+    -webkit-filter: brightness(1.1); /* Menambahkan sedikit efek kecerahan untuk gambar lebih hidup */
+    filter: brightness(1.1);
+}
+
+
+.navigation {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.nav-btn {
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.nav-btn:disabled {
+    background: rgba(255, 255, 255, 0.2);
+    cursor: not-allowed;
+}
+
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="back-button" onclick="goBack()">
+        <img src="https://img.icons8.com/ios-glyphs/30/FFFFFF/left.png" alt="Back">
+    </div>
+    <h1>Setting</h1>
+</div>
+
+<div class="settings-section">
+    <div class="settings-item" onclick="alert('Akun Settings')">
+        <p>Akun</p>
+    </div>
+    <div class="settings-item" onclick="alert('Privasi Settings')">
+        <p>Privasi</p>
+    </div>
+    <div class="settings-item" onclick="alert('Keamanan Settings')">
+        <p>Keamanan</p>
+    </div>
+    <div class="settings-item" onclick="alert('Notifikasi Settings')">
+        <p>Notifikasi</p>
+    </div>
+    <div class="settings-item" onclick="alert('Bahasa Settings')">
+        <p>Bahasa</p>
+    </div>
+</div>
+
+
+<div class="bottom-nav">
+    <div class="nav-item active" onclick="setActive(this, 0)">
+        <a href="index.html"></a>
+            <div class="circle"></div>
+            <img src="https://img.icons8.com/ios-filled/50/FFFFFF/home.png" alt="Home">
+            <span>Home</span>
+        
+    </div>
+    <div class="nav-item" onclick="setActive(this, 1)">
+        <a href="wallet.html"></a>
+            <div class="circle"></div>
+            <img src="https://img.icons8.com/ios-filled/50/FFFFFF/image.png" alt="Wallet">
+            <span>Wallet</span>
+        
+    </div>
+    <div class="nav-item" onclick="setActive(this, 3)">
+        <div class="circle"></div>
+        <img src="https://img.icons8.com/ios-filled/50/FFFFFF/user.png" alt="Profile">
+        <span>Profile</span>
+    </div>
+    <div class="nav-item" onclick="setActive(this, 4)">
+        <div class="circle"></div>
+        <img src="https://img.icons8.com/ios-filled/50/FFFFFF/settings.png" alt="Settings">
+        <span>Settings</span>
+    </div>
+</div>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+        const navItems = document.querySelectorAll('.nav-item');
+        const currentPath = window.location.pathname; // Mendapatkan path URL saat ini
+
+        // Hapus kelas 'active' dari semua elemen
+        navItems.forEach((item) => item.classList.remove('active'));
+
+        // Periksa halaman mana yang sedang dibuka dan tambahkan kelas 'active'
+        if (currentPath.includes('index.html')) {
+            navItems[0].classList.add('active');
+        } else if (currentPath.includes('wallet.html')) {
+            navItems[1].classList.add('active');
+        } else if (currentPath.includes('profile.html')) {
+            navItems[2].classList.add('active');
+        } else if (currentPath.includes('settings.html')) {
+            navItems[3].classList.add('active');
+        }
+    });
+
+    // Fungsi setActive untuk navigasi dan mengatur elemen aktif
+    function setActive(element, index) {
+        // Hapus kelas 'active' dari semua elemen
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach((item) => item.classList.remove('active'));
+
+        // Tambahkan kelas 'active' pada elemen yang diklik
+        element.classList.add('active');
+
+        // Navigasi halaman berdasarkan indeks
+        if (index === 0) {
+            window.location.href = 'index.html';
+        } else if (index === 1) {
+            window.location.href = 'wallet.html';
+        } else if (index === 3) {
+            window.location.href = 'profile.html';
+        } else if (index === 4) {
+            window.location.href = 'settings.html';
+        }
+    }
+
+
+    // Fungsi untuk kembali ke halaman sebelumnya
+    function goBack() {
+        window.location.href = 'index.html'; // Arahkan ke halaman utama
+    }
+</script>
+
+</body>
+</html>
